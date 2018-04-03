@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.mail.Message;
@@ -83,8 +85,9 @@ public class FacebookBotWorkFlowImplementations implements FacebookBotWorkflows 
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(contact.getEmail()));
             message.setSubject("Testing Subject");
-            message.setText("Dear Mail Crawler,"
-                    + "\n\n No spam to my email, please!");
+            File file = new File(Res.getResource("emails/email.txt").toURI());
+            String content = FileUtils.readFileToString(file);
+            message.setText(content);
             Transport transport = session.getTransport("smtp");
             transport.connect("smtp.gmail.com", Configurations.GMAIL_ID + "@gmail.com", Configurations.GMAIL_PASSWORD);
             transport.sendMessage(message, message.getAllRecipients());
@@ -94,6 +97,10 @@ public class FacebookBotWorkFlowImplementations implements FacebookBotWorkflows 
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(FacebookBotWorkFlowImplementations.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FacebookBotWorkFlowImplementations.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -250,11 +257,21 @@ public class FacebookBotWorkFlowImplementations implements FacebookBotWorkflows 
     }
 
     private void clickTheInputSubmitButton(List<WebElement> buttons) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (WebElement button : buttons) {
+            if (button.getText().equalsIgnoreCase("Submit")) {
+                button.click();
+                break;
+            }
+        }
     }
 
     private void clickTheSubmitButton(List<WebElement> buttons) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (WebElement button : buttons) {
+            if (button.getAttribute("type").equalsIgnoreCase("Submit")) {
+                button.click();
+                break;
+            }
+        }
     }
 
     private void addToTheInputTextBox(Map<String, String> attribs, WebElement textbox, String info) {

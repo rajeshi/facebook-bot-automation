@@ -22,8 +22,7 @@ public class BaseTests extends Assert {
 
     @BeforeMethod
     public void setupTest() throws MalformedURLException {
-        DriverFactory.createWebDriverInstance();
-        DriverFactory.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        
     }
 
     @AfterMethod
@@ -42,6 +41,6 @@ public class BaseTests extends Assert {
                 FileUtils.writeByteArrayToFile(fileScr, baos.toByteArray());
             }
         }
-        DriverFactory.getDriver().quit();
+        //DriverFactory.getDriver().quit();
     }
 }

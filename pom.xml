@@ -20,6 +20,7 @@
         <gilly.facebook.password>test</gilly.facebook.password>
         <gilly.gmail.id>rajesh23427</gilly.gmail.id>
         <gilly.gmail.password>bramabull83</gilly.gmail.password>
+        <gilly.keyword>Miami Restuarants</gilly.keyword>
     </properties>
     <dependencies>
         <dependency>

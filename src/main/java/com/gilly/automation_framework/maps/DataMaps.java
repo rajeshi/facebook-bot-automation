@@ -8,8 +8,8 @@ public class DataMaps {
     public static Map<String, String> dataMaps = new HashMap<String, String>();
 
     static {
-        dataMaps.put("Name", "Rajesh Iyer");
-        dataMaps.put("Email", "rajesh23427@gmail.com");
-        dataMaps.put("Subject", "Some catchy Subject");
+        dataMaps.put("Name", "Gil Rozenblatt");//Gil to entr his name
+        dataMaps.put("Email", "Gillyroze@gmail.com"); //Gil to enter his email
+        dataMaps.put("Subject", "Amazon Product Tester/Reviews Program"); // Gill to provide a subject.
     }
 }

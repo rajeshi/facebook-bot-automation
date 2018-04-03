@@ -19,6 +19,7 @@ public class Configurations {
     public static String FACEBOOK_PASSWORD = getProp().getProperty("gilly.facebook.password");
     public static String GMAIL_ID = getProp().getProperty("gilly.gmail.id");
     public static String GMAIL_PASSWORD = getProp().getProperty("gilly.gmail.password");
+    public static String KEYWORD = getProp().getProperty("gilly.keyword");
 
     private static Properties prop;
     private static HashMap<String, String> urlMap;
