@@ -84,7 +84,7 @@ public class FacebookBotWorkFlowImplementations implements FacebookBotWorkflows 
             message.setFrom(new InternetAddress(Configurations.GMAIL_ID + "@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(contact.getEmail()));
-            message.setSubject("Testing Subject");
+            message.setSubject("Professional Write-up Review");
             File file = new File(Res.getResource("emails/email.txt").toURI());
             String content = FileUtils.readFileToString(file);
             message.setText(content);
@@ -147,7 +147,7 @@ public class FacebookBotWorkFlowImplementations implements FacebookBotWorkflows 
                 for (String contactUsMatch : contactUsMatches) {
                     driver.navigate().to(updatedUrl + contactUsMatch);
                     String pageSource = driver.getPageSource();
-                    if (pageSource.contains("404 Not Found")) {
+                    if (pageSource.contains("Not Found") || pageSource.contains("404") || driver.getCurrentUrl().toUpperCase().contains("ERROR")) {
                     } else {
                         if (pageSource.contains("mailto:")) {
                             marketingInfo.setEmail(getEmailFromPage(pageSource));
@@ -197,7 +197,7 @@ public class FacebookBotWorkFlowImplementations implements FacebookBotWorkflows 
         } catch (NoSuchElementException ex) {
         }
 
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.MINUTES);
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.MINUTES);
         List<WebElement> textboxes = filterTextboxesFromInputs(inputs);
         List<WebElement> inputButtons = filterButtonsFromInputs(inputs);
 

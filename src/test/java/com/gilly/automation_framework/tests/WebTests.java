@@ -30,6 +30,10 @@ public class WebTests extends BaseTests {
 
         List<ContactInfo> contacts = new ArrayList<>();
         FacebookResultDetailsAboutTab aboutTab = fbw.navigateToTheResultAboutPage(basicInfo);
+        if (aboutTab.isEmailSectionPresent()) {
+            ContactInfo contact = aboutTab.getEmailFromAboutPage();
+            contacts.add(contact);
+        }
         if (aboutTab.isAdditionalContactInfoSectionPresent()) {
             ContactInfo contact = aboutTab.getContactInfoFromAboutPage();
             if (contact.getCompanyUrl().isEmpty()) {
@@ -48,39 +52,6 @@ public class WebTests extends BaseTests {
         }
     }
 
-    /* @Test
-    public void testPickingUpInfo() {
-
-        List<ContactInfo> contacts = new ArrayList<>();
-
-        ContactInfo contact1 = new ContactInfo();
-        contact1.setCompanyUrl("https://www.novikovmiami.com");
-
-        ContactInfo contact2 = new ContactInfo();
-        contact2.setCompanyUrl("http://nomamiami.com/");
-
-        contacts.add(contact1);
-        contacts.add(contact2);
-
-        FacebookBotWorkflows fbw = new FacebookBotWorkFlowImplementations();
-        for (ContactInfo contact : contacts) {
-            if (contact.getCompanyUrl().isEmpty()) {
-            } else {
-                WebDriver driver = DriverFactory.getDriver();
-                driver.navigate().to(contact.getCompanyUrl());
-                MarketingInfo marketingInfo = fbw.navigateToContactUsPageOnWebsite();
-            }
-        }
-    }
-
-    @Test
-    public void testEmailUtility() {
-        ContactInfo contact = new ContactInfo();
-        contact.setEmail("rajesh.n.iyer@gmail.com");
-
-        FacebookBotWorkflows fbw = new FacebookBotWorkFlowImplementations();
-        fbw.sendEmailsFromMyAccountToTheBusinessContact(contact);
-    }*/
     @DataProvider(name = "testData", parallel = false)
     public Object[][] getTestData() throws MalformedURLException {
         DriverFactory.createWebDriverInstance();
@@ -108,11 +79,5 @@ public class WebTests extends BaseTests {
         }
 
         return basicInfoArray.toArray(new BasicInfo[basicInfos.size()][]);
-        /*ExcelContext context = new ExcelContext();
-        context.setExcelFile("testData/Facebook.xlsx");
-        context.setSheetName("Sheet1");
-        Excel excelObj = new Excel(context);
-        String[][] testData = excelObj.getData("keyword");
-        return testData;*/
     }
 }
